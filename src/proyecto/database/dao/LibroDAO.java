@@ -124,8 +124,9 @@ public class LibroDAO extends Conexion {
         return registrosActualizados;
     }
 
-    // Devuelve un objeto de tipo libro a partir de un 'ISBN' y 'edicion', si
-    // no encuentra ninguna coincidencia devuelve null.
+    // Devuelve una lista de tipo libro a partir de un titulo, se usa la sentencia LIKE en el SQL
+    // para devolver las similitudes y hacer mas dinamica la busqueda
+    // si no encuentra ninguna coincidencia devuelve una lista vacia.
     public List<Libro> buscarLibroPorTitulo(String titulo) {
         List<Libro> libros = new ArrayList<>();
         Libro libro = null;
@@ -164,6 +165,46 @@ public class LibroDAO extends Conexion {
         }
 
         return libros;
+    }
+
+    // Devuelve un objeto de tipo libro a partir de un 'ISBN' y 'edicion', si
+    // no encuentra ninguna coincidencia devuelve null.
+    public Libro buscarLibroPorISBN(String isbn) {
+        Libro libro = null;
+
+        try {
+            getConexion();
+            String query = "SELECT * FROM libros WHERE ISBN LIKE ?";
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, "%"+isbn+"%");
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                libro = new Libro();
+                libro.setISBN(rs.getString("ISBN"));
+                libro.setEdicion(rs.getInt("Edicion"));
+                libro.setFechaPublicacion(rs.getInt("FechaPublicacion"));
+                libro.setTitulo(rs.getString("Titulo"));
+                libro.setNombreAutor(rs.getString("NombreAutor"));
+                libro.setPrimerApellidoAutor(rs.getString("PrimerApellidoAutor"));
+                libro.setSegundoApellidoAutor(rs.getString("SegundoApellidoAutor"));
+                libro.setPaginas(rs.getInt("Paginas"));
+                libro.setCategoria(rs.getString("Categoria"));
+                libro.setEditorial(rs.getString("Editorial"));
+            }
+
+            preparedStatement.close();
+            rs.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception ->" + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Excepcion generica----->" + e);
+        }
+
+        return libro;
     }
 
     // Devuelve una lista de tipo libro con todos los registros existentes, si

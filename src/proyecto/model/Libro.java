@@ -3,21 +3,22 @@ package proyecto.model;
 public class Libro {
     // Atributos del libro a guardar en la DB
     private String ISBN;
-    private int edicion;
-    private int fechaPublicacion;
+    private Integer edicion;
+    private Integer fechaPublicacion;
     private String titulo;
     private String nombreAutor;
     private String primerApellidoAutor;
     private String segundoApellidoAutor;
-    private int paginas;
+    private Integer paginas;
     private String categoria;
     private String editorial;
 
     public Libro() {
     }
 
-    public Libro(String ISBN, int edicion, int fechaPublicacion, String titulo, String nombreAutor,
-            String primerApellidoAutor, String segundoApellidoAutor, int paginas, String categoria, String editorial) {
+    public Libro(String ISBN, Integer edicion, Integer fechaPublicacion, String titulo, String nombreAutor,
+            String primerApellidoAutor, String segundoApellidoAutor, Integer paginas, String categoria,
+            String editorial) {
         this.ISBN = ISBN;
         this.edicion = edicion;
         this.fechaPublicacion = fechaPublicacion;
@@ -39,19 +40,19 @@ public class Libro {
         this.ISBN = ISBN;
     }
 
-    public int getEdicion() {
+    public Integer getEdicion() {
         return this.edicion;
     }
 
-    public void setEdicion(int edicion) {
+    public void setEdicion(Integer edicion) {
         this.edicion = edicion;
     }
 
-    public int getFechaPublicacion() {
+    public Integer getFechaPublicacion() {
         return this.fechaPublicacion;
     }
 
-    public void setFechaPublicacion(int fechaPublicacion) {
+    public void setFechaPublicacion(Integer fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
 
@@ -87,11 +88,11 @@ public class Libro {
         this.segundoApellidoAutor = segundoApellidoAutor;
     }
 
-    public int getPaginas() {
+    public Integer getPaginas() {
         return this.paginas;
     }
 
-    public void setPaginas(int paginas) {
+    public void setPaginas(Integer paginas) {
         this.paginas = paginas;
     }
 
